@@ -1,0 +1,41 @@
+name: Autograding Tests
+'on':
+- push
+- workflow_dispatch
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Default Props Only
+      id: default-props-only
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: Default Props Only
+        setup-command: npm install
+        command: npm test default
+        timeout: 5
+        max-score: 40
+    - name: Custom Prop Values
+      id: custom-prop-values
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: Custom Prop Values
+        setup-command: npm install
+        command: npm test props
+        timeout: 5
+        max-score: 60
+    - name: Autograding Reporter
+      uses: education/autograding-grading-reporter@v1
+      env:
+        DEFAULT-PROPS-ONLY_RESULTS: "${{steps.default-props-only.outputs.result}}"
+        CUSTOM-PROP-VALUES_RESULTS: "${{steps.custom-prop-values.outputs.result}}"
+      with:
+        runners: default-props-only,custom-prop-values
