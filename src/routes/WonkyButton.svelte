@@ -2,7 +2,7 @@
 	export let value = 0;
 
 	function increment() {
-		value += Math.floor(Math.random() * 9);
+		value += Math.floor(Math.random() * 10);
 	}
 </script>
 
