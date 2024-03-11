@@ -1,5 +1,5 @@
 <script>
-	let value = 0;
+	export let value = 0;
 
 	function increment() {
 		value += Math.floor(Math.random() * 9);
