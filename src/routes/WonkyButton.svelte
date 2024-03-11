@@ -6,20 +6,14 @@
 	}
 </script>
 
-{#if value % 15 == 0}
-	<button on:click={increment}>
+<button on:click={increment}>
+	{#if value % 15 == 0}
 		FizzBuzz {value}
-	</button>
-{:else if value % 3 == 0}
-	<button on:click={increment}>
+	{:else if value % 3 == 0}
 		Fizz {value}
-	</button>
-{:else if value % 5 == 0}
-	<button on:click={increment}>
+	{:else if value % 5 == 0}
 		Buzz {value}
-	</button>
-{:else}
-	<button on:click={increment}>
+	{:else}
 		{value}
-	</button>
-{/if}
+	{/if}
+</button>
